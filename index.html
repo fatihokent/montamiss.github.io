@@ -124,24 +124,48 @@
           <li class="l-section section">
             <div class="work">
               <div class="work--lockup">
-                  <div class="track-wrapper">
-                    <ul class="track">
-                      <li class="track__item">
-                        <video src="assets/img/GymAd.mp4" controlsList="nodownload" oncontextmenu="return false;"  controls width="300" height="300"></video>
-                      </li>
-                      <li class="track__item">
-                        <video src="assets/img/PizzeriaYoyoAd.mp4" controlsList="nodownload" oncontextmenu="return false;"  controls width="300" height="300"></video>
-                      </li>
-                      <li class="track__item">
-                        <video src="assets/img/HorrorTeaser.mp4" controlsList="nodownload" oncontextmenu="return false;"  controls width="300" height="300"></video>
-                      </li>
-                    </ul>
+
+                <div class="videos-container" id="videosSlider">
+
+                  <div class="video-item">
+                    <a href="#0">
+                      <div class="slider--item-image vertical">
+                        <video src="assets/img/ASimo.mp4"
+                          controlsList="nodownload"
+                          oncontextmenu="return false;"
+                          controls>
+                        </video>
+                      </div>
+                      <p class="video-item-title">Mohamed Bounaddi Edit</p>
+                    </a>
                   </div>
 
-                
+                  <div class="video-item">
+                    <a href="#0">
+                      <div class="slider--item-image vertical">
+                        <video src="assets/img/Ataa_soulami.mp4"
+                          controlsList="nodownload"
+                          oncontextmenu="return false;"
+                          controls>
+                        </video>
+                      </div>
+                      <p class="video-item-title">Ataa Soulami Edit</p>
+                    </a>
+                  </div>
+
+                </div>
+
+                <!-- Indicateurs mobile -->
+                <div class="video-indicators">
+                  <button class="video-dot active" data-index="0" aria-label="Vidéo 1"></button>
+                  <button class="video-dot" data-index="1" aria-label="Vidéo 2"></button>
+                </div>
+
               </div>
             </div>
           </li>
+
+
           
  
           <li class="l-section section">
@@ -192,5 +216,40 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
 <script src="assets/js/functions-min.js"></script>
+
+<script>
+
+const slider = document.getElementById('videosSlider');
+const dots = document.querySelectorAll('.video-dot');
+const videos = document.querySelectorAll('.video-item');
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const index = Number(dot.dataset.index);
+
+    slider.scrollTo({
+      left: videos[index].offsetLeft - videos[0].offsetLeft,
+      behavior: 'smooth'
+    });
+
+    updateActiveDot(index);
+  });
+});
+
+function updateActiveDot(index) {
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+}
+
+slider.addEventListener('scroll', () => {
+  const index = Math.round(
+    slider.scrollLeft / videos[0].offsetWidth
+  );
+
+  updateActiveDot(Math.min(index, dots.length - 1));
+});
+
+</script>
 </body>
 </html>
